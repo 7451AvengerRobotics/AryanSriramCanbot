@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -15,7 +16,7 @@ public class Piston extends SubsystemBase{
     public Piston() {
         super();
         //initializing compressor and solenoid  
-       compressor = new Compressor(0, PneumaticsModuleType.CTREPCM); //need to change module id 
+        compressor = new Compressor(0, PneumaticsModuleType.CTREPCM); //need to change module id 
         armSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Arm[1]); 
         lockSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, 6);
         //need to change module id
@@ -46,6 +47,13 @@ public class Piston extends SubsystemBase{
     } else{
         this.retract();
     }
+   }
+
+   public Command togglePistonCommand() {
+    return run(() -> {
+        System.out.println("Toggling");
+        this.toggle();
+    });
    }
 
 

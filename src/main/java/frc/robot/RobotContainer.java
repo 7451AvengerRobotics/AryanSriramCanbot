@@ -68,7 +68,7 @@ If the driver presses the B button than the drivtrain will reset back to Tank Dr
   private void configureBindings() {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    buttonSmasher.onTrue(new PistonCommand(pistonSubsystem));
+    buttonSmasher.onTrue(pistonSubsystem.togglePistonCommand());
   }
 
   /**
