@@ -5,8 +5,14 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.PistonCommand;
+import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Piston;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PS4Controller;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -20,15 +26,19 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Piston pistonSubsystem = new Piston();
+  DigitalInput bigRedButton = new DigitalInput(0);
+  Trigger buttonSmasher = new Trigger(bigRedButton::get);
+  Drive drivetrain = new Drive();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  private final Joystick m_driverController =
+      new Joystick(OperatorConstants.kDriverControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+    configureDriveTrain();
   }
 
   /**
@@ -40,10 +50,25 @@ public class RobotContainer {
    * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
    * joysticks}.
    */
+
+   private void configureDriveTrain() {
+
+/*
+Sets the state of the type of drivetrain. For example if driver wants Arcade than the driver presses the A button to enter arcade mode.
+If the driver presses the B button than the drivtrain will reset back to Tank Drive
+*/
+
+      drivetrain.setDefaultCommand(
+        new ArcadeDrive(
+            drivetrain,
+            m_driverController::getY,
+            m_driverController::getX));
+}
+
   private void configureBindings() {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().onTrue(new PistonCommand(pistonSubsystem));
+    buttonSmasher.onTrue(new PistonCommand(pistonSubsystem));
   }
 
   /**
