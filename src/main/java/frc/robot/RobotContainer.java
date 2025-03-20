@@ -62,7 +62,7 @@ If the driver presses the B button than the drivtrain will reset back to Tank Dr
         new ArcadeDrive(
             drivetrain,
             m_driverController::getY,
-            m_driverController::getX));
+            m_driverController::getZ));
 }
 
   private void configureBindings() {
