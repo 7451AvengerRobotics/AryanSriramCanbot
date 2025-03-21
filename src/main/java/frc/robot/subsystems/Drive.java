@@ -33,11 +33,11 @@ public class Drive extends SubsystemBase {
         super();
         
         // Instantiate Spark MAX controllers (brushed mode)
-        leftLeader = new SparkMax(4, MotorType.kBrushed);
-        leftFollower = new SparkMax(5, MotorType.kBrushed);
+        leftLeader = new SparkMax(20, MotorType.kBrushed);
+        leftFollower = new SparkMax(21, MotorType.kBrushed);
 
-        rightLeader = new SparkMax(2, MotorType.kBrushed);
-        rightFollower = new SparkMax(1, MotorType.kBrushed);
+        rightLeader = new SparkMax(24, MotorType.kBrushed);
+        rightFollower = new SparkMax(25, MotorType.kBrushed);
 
         SparkMaxConfig config = new SparkMaxConfig();
 

@@ -1,25 +1,24 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
 public class Piston extends SubsystemBase{
     private static boolean isExtended = false;
     private final Compressor compressor;
     private final Solenoid armSolenoid;
-    private final Solenoid lockSolenoid;
+    public static DigitalInput bigRedButton = new DigitalInput(4);
 
     public Piston() {
         super();
         //initializing compressor and solenoid  
         compressor = new Compressor(0, PneumaticsModuleType.CTREPCM); //need to change module id 
-        armSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.Arm[1]); 
-        lockSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, 6);
-        //need to change module id
+        armSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, 1); 
     }
    public void stop(){
     compressor.disable();
@@ -50,22 +49,19 @@ public class Piston extends SubsystemBase{
    }
 
    public Command togglePistonCommand() {
-    return run(() -> {
+    return runOnce(() -> {
         System.out.println("Toggling");
         this.toggle();
     });
    }
 
-
-   public void unlockSolenoid(){
-    lockSolenoid.set(false);
-   }
-
-   public void lockSolenoid(){
-    lockSolenoid.set(true);
-   }
-
    public boolean getArmState(){
     return isExtended;
+   }
+   @Override
+   public void periodic() 
+   {
+    SmartDashboard.putBoolean("Wallabaloon", isExtended);
+    SmartDashboard.putBoolean("King", bigRedButton.get());
    }
 }

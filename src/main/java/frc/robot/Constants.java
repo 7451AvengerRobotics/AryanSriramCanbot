@@ -17,5 +17,5 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
   }
 
-  public static final int[] Arm = {0, 1, 6};
+  public static final int[] Arm = {0, 8, 6};
 }
