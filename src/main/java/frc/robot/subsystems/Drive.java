@@ -10,7 +10,7 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 //import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import frc.robot.Constants;
 import frc.robot.commands.CustomMotorGroup;
 
 public class Drive extends SubsystemBase {
@@ -33,11 +33,11 @@ public class Drive extends SubsystemBase {
         super();
         
         // Instantiate Spark MAX controllers (brushed mode)
-        leftLeader = new SparkMax(20, MotorType.kBrushed);
-        leftFollower = new SparkMax(21, MotorType.kBrushed);
+        leftLeader = new SparkMax(Constants.frontLeft, MotorType.kBrushed);
+        leftFollower = new SparkMax(Constants.backLeft, MotorType.kBrushed);
 
-        rightLeader = new SparkMax(24, MotorType.kBrushed);
-        rightFollower = new SparkMax(25, MotorType.kBrushed);
+        rightLeader = new SparkMax(Constants.frontRight, MotorType.kBrushed);
+        rightFollower = new SparkMax(Constants.backRight, MotorType.kBrushed);
 
         SparkMaxConfig config = new SparkMaxConfig();
 
@@ -66,7 +66,7 @@ public class Drive extends SubsystemBase {
      * @param rotation turning rate
      */
     public void arcadeDrive(double speed, double rotation) {
-        differentialDrive.arcadeDrive(speed, rotation);
+        differentialDrive.arcadeDrive(speed, 0 - rotation);
     }
 
     /**
@@ -79,4 +79,5 @@ public class Drive extends SubsystemBase {
         differentialDrive.feed();
     }
 }
+
 

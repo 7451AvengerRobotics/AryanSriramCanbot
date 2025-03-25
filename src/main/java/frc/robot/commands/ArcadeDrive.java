@@ -32,7 +32,7 @@ public class ArcadeDrive extends Command {
 
 @Override
   public void execute() {
-      double scalar =  0.7;
-      drive.arcadeDrive(power.getAsDouble() * scalar, turn.getAsDouble() * -scalar);
+      double scalar =  0.5;
+      drive.arcadeDrive(power.getAsDouble() * 1.4 * scalar, turn.getAsDouble() * -scalar);
       }
  }

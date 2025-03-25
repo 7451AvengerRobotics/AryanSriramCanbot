@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Piston;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -58,8 +59,8 @@ If the driver presses the B button than the drivtrain will reset back to Tank Dr
       drivetrain.setDefaultCommand(
         new ArcadeDrive(
             drivetrain,
-            m_driverController::getY,
-            m_driverController::getZ));
+            m_driverController::getX,
+            m_driverController::getY));
 }
 
   private void configureBindings() {

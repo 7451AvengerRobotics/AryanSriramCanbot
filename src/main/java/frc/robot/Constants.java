@@ -18,4 +18,10 @@ public final class Constants {
   }
 
   public static final int[] Arm = {0, 8, 6};
+
+  public static int backRight = 24;
+  public static int backLeft = 21;
+  public static int frontRight = 20;
+  public static int frontLeft = 25;
+  
 }
