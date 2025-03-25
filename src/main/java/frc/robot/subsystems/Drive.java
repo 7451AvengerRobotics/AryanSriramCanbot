@@ -65,8 +65,8 @@ public class Drive extends SubsystemBase {
      * @param speed    forward/backward speed
      * @param rotation turning rate
      */
-    public void arcadeDrive(double speed, double rotation) {
-        differentialDrive.arcadeDrive(speed, 0 - rotation);
+    public void arcadeDrive(double rotation, double speed) {
+        differentialDrive.arcadeDrive(rotation, 0-speed);
     }
 
     /**

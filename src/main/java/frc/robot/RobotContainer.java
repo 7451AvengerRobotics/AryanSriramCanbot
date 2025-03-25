@@ -6,13 +6,16 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ArcadeDrive;
-import frc.robot.commands.TankDrive;
+import frc.robot.commands.Auton.AutonCommand;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Piston;
-import edu.wpi.first.wpilibj.DigitalInput;
+
+import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -24,6 +27,10 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Piston pistonSubsystem = new Piston();
+
+  private final LoggedDashboardChooser<Command> autoChooser = new LoggedDashboardChooser<>("Auto Routine");
+  final AutonCommand autonCommand = new AutonCommand();
+
   
   Trigger buttonSmasher = new Trigger(Piston.bigRedButton::get);
   Drive drivetrain = new Drive();
@@ -32,11 +39,15 @@ public class RobotContainer {
   private final Joystick m_driverController =
       new Joystick(OperatorConstants.kDriverControllerPort);
 
+  private JoystickButton buttonY = new JoystickButton(m_driverController, 4);
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
     configureDriveTrain();
+    autoChooser.addDefaultOption("Do Nothing", new InstantCommand());
+    autoChooser.addOption("My First Auto", autonCommand.runAutonCommand(drivetrain));
   }
 
   /**
@@ -67,6 +78,7 @@ If the driver presses the B button than the drivtrain will reset back to Tank Dr
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     buttonSmasher.onTrue(pistonSubsystem.togglePistonCommand());
+    buttonY.onTrue(autonCommand.runAutonCommand(drivetrain));
   }
 
   /**
@@ -76,6 +88,7 @@ If the driver presses the B button than the drivtrain will reset back to Tank Dr
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return null;
+    return autoChooser.get();
+    //return autonCommand.runAutonCommand(drivetrain);
   }
 }
