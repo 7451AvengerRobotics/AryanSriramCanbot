@@ -55,11 +55,7 @@ Sets the state of the type of drivetrain. For example if driver wants Arcade tha
 If the driver presses the B button than the drivtrain will reset back to Tank Drive
 */
 
-      drivetrain.setDefaultCommand(
-        new ArcadeDrive(
-            drivetrain,
-            m_driverController::getY,
-            m_driverController::getZ));
+
 }
 
   private void configureBindings() {
