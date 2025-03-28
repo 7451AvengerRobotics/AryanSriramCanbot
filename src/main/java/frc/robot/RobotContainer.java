@@ -6,8 +6,9 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ArcadeDrive;
-import frc.robot.commands.DriveCommand;
 import frc.robot.commands.Auton.AutonCommand;
+import frc.robot.commands.Auton.ComplexAuton;
+import frc.robot.commands.Auton.SimpleAuton;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Piston;
 
@@ -34,8 +35,8 @@ public class RobotContainer {
   Trigger buttonSmasher = new Trigger(Piston.bigRedButton::get);
   Drive drivetrain = new Drive();
 
-  private final Command simpleAuto = new DriveCommand(drivetrain, 0, 0.5, 1);
-  private final Command complexAuto = new DriveCommand(drivetrain, 0, 0.7, 2);
+  private final Command simpleAuto = new SimpleAuton(drivetrain, 0, 0.5, 1);
+  private final Command complexAuto = new ComplexAuton(drivetrain, 0, 0.5, 1, 0.9, 0.5, 1.5, 0, 0.5, 1);
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed

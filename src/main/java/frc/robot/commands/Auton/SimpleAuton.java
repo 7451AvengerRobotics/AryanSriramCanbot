@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.Auton;
 
 
 import frc.robot.subsystems.Drive;
@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 
 
-public class DriveCommand extends Command{
+public class SimpleAuton extends Command{
     private final Drive drivetrain;
     private double rotation;
     private double speed;
@@ -14,7 +14,7 @@ public class DriveCommand extends Command{
     
     Timer timer = new Timer();
 
-    public DriveCommand(Drive drive, double driveRotation, double driveSpeed, double driveTime) {
+    public SimpleAuton(Drive drive, double driveRotation, double driveSpeed, double driveTime) {
         drivetrain = drive;
         rotation = driveRotation;
         speed = driveSpeed;
