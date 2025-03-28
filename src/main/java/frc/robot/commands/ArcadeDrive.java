@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
 
 import java.util.function.DoubleSupplier;
@@ -9,6 +10,8 @@ public class ArcadeDrive extends Command {
   private final Drive drive;
   private final DoubleSupplier power;
   private final DoubleSupplier turn;
+  private double turboValue = Constants.buttonY_toggle;
+  
   /**
    * Creates a new DefaultDrive.
    *
@@ -32,7 +35,9 @@ public class ArcadeDrive extends Command {
 
 @Override
   public void execute() {
-      double scalar =  0.5;
-      drive.arcadeDrive(power.getAsDouble() * 1.4 * scalar, turn.getAsDouble() * -scalar);
+      turboValue = Constants.buttonY_toggle;
+      double scalar = turboValue;
+      System.out.println(turboValue);
+      drive.arcadeDrive(power.getAsDouble() * 1.8 * scalar, turn.getAsDouble() * -scalar);
       }
  }

@@ -6,8 +6,8 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
-//import edu.wpi.first.wpilibj.motorcontrol.MotorController;
-//import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj2.command.Command;
+
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -80,6 +80,20 @@ public class Drive extends SubsystemBase {
         differentialDrive.tankDrive(leftTrain, rightTrain);
         differentialDrive.feed();
     }
+
+    public void turboToggle() {
+        if (Constants.buttonY_toggle == 0.5) {
+            Constants.buttonY_toggle = 1;
+        } else {
+            Constants.buttonY_toggle = 0.5;
+        }
+    }
+
+   public Command turboToggler() {
+    return runOnce(() -> {
+        this.turboToggle();
+    });
+   }
 
 }
 

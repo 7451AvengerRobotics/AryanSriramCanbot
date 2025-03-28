@@ -23,5 +23,7 @@ public final class Constants {
   public static int backLeft = 21;
   public static int frontRight = 20;
   public static int frontLeft = 25;
+
+  public static double buttonY_toggle = 0.5;
   
 }
