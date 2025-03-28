@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.DriveCommand;
 import frc.robot.commands.Auton.AutonCommand;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Piston;
@@ -88,7 +89,9 @@ If the driver presses the B button than the drivtrain will reset back to Tank Dr
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return autoChooser.get();
+    //System.out.println(autoChooser.get());
+    //return autoChooser.get();
     //return autonCommand.runAutonCommand(drivetrain);
+    return new DriveCommand(drivetrain, 0.0, 0.5, 1.0);
   }
 }

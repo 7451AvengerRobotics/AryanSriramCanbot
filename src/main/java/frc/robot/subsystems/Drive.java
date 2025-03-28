@@ -15,6 +15,8 @@ import frc.robot.commands.CustomMotorGroup;
 
 public class Drive extends SubsystemBase {
 
+    public boolean SimpleAuton = true;
+
     // Spark MAX motor controllers
     private final SparkMax leftLeader;
     private final SparkMax leftFollower;
@@ -78,6 +80,7 @@ public class Drive extends SubsystemBase {
         differentialDrive.tankDrive(leftTrain, rightTrain);
         differentialDrive.feed();
     }
+
 }
 
 
