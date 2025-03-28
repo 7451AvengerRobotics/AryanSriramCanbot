@@ -37,7 +37,6 @@ public class ArcadeDrive extends Command {
   public void execute() {
       turboValue = Constants.buttonY_toggle;
       double scalar = turboValue;
-      System.out.println(turboValue);
       drive.arcadeDrive(power.getAsDouble() * 1.8 * scalar, turn.getAsDouble() * -scalar);
       }
  }

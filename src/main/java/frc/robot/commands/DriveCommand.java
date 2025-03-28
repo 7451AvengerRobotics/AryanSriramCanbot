@@ -33,6 +33,8 @@ public class DriveCommand extends Command{
             drivetrain.arcadeDrive(rotation, speed);
         }
         timer.stop();
+        timer.reset();
+        System.out.println("It finish");
         this.isFinished();
       }
 

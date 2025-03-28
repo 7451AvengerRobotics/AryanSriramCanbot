@@ -11,13 +11,12 @@ import frc.robot.commands.Auton.AutonCommand;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Piston;
 
-import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
-
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -30,12 +29,14 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Piston pistonSubsystem = new Piston();
 
-  private final LoggedDashboardChooser<Command> autoChooser = new LoggedDashboardChooser<>("Auto Routine");
   final AutonCommand autonCommand = new AutonCommand();
-
   
   Trigger buttonSmasher = new Trigger(Piston.bigRedButton::get);
   Drive drivetrain = new Drive();
+
+  private final Command simpleAuto = new DriveCommand(drivetrain, 0, 0.5, 1);
+  private final Command complexAuto = new DriveCommand(drivetrain, 0, 0.7, 2);
+  SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final Joystick m_driverController =
@@ -48,8 +49,11 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
     configureDriveTrain();
-    autoChooser.addDefaultOption("Do Nothing", new InstantCommand());
-    autoChooser.addOption("My First Auto", autonCommand.runAutonCommand(drivetrain));
+
+    m_chooser.setDefaultOption("Simple Auto", simpleAuto);
+    m_chooser.addOption("Complex Auto", complexAuto);
+
+    SmartDashboard.putData(m_chooser);
   }
 
   /**
@@ -93,6 +97,6 @@ If the driver presses the B button than the drivtrain will reset back to Tank Dr
     //System.out.println(autoChooser.get());
     //return autoChooser.get();
     //return autonCommand.runAutonCommand(drivetrain);
-    return new DriveCommand(drivetrain, 0.0, 0.5, 1.0);
+    return m_chooser.getSelected();
   }
 }
